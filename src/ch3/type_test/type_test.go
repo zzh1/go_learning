@@ -21,3 +21,12 @@ func TestImplicit(t *testing.T) {
 	t.Log(a, b, c)
 
 }
+
+func TestPoint(t *testing.T) {
+	a := 1
+	aPtr := &a
+	aPtr = aPtr + 1
+	t.Log(a, aPtr)
+	t.Logf("%T %T", a, aPtr)
+
+}
