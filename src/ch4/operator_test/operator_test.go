@@ -4,6 +4,12 @@ import (
 	"testing"
 )
 
+const (
+	Readable = 1 << iota
+	Writable
+	Executable
+)
+
 func TestCompareArray(t *testing.T) {
 
 	a := [...]int{1, 2, 3, 4}
@@ -14,4 +20,10 @@ func TestCompareArray(t *testing.T) {
 	// t.Log(a == c)
 	t.Log(a == d)
 
+}
+func TestBitClear(t *testing.T) {
+	a := 7
+	a = a &^ Readable
+	a = a &^ Executable
+	t.Log(a&Readable == Readable, a&Writable == Writable, a&Executable == Executable)
 }
