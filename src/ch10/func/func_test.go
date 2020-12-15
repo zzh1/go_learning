@@ -46,3 +46,18 @@ func TestVarParam(t *testing.T) {
 	t.Log(Sum(1, 2, 3, 4))
 	t.Log(Sum(1, 2, 3, 4, 5))
 }
+
+func Clear() {
+	fmt.Println("Clear resources.")
+}
+
+func TestDefer(t *testing.T) {
+	//执行完别的语句后再执行本函数
+	defer Clear()
+	fmt.Println("Start")
+	//报错中断语句，报错前会执行上面的defer函数
+	panic("err")
+	// panic后面的语句不会被执行
+	// fmt.Println("End")
+
+}
