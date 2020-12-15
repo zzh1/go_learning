@@ -28,8 +28,21 @@ func slowFun(op int) int {
 func TestFn(t *testing.T) {
 	// a, b := returnMultiValues()
 	//不需要某个参数，可以使用占位符
-	// a, _ := returnMultiValues()
-	// t.Log(a)
+	a, _ := returnMultiValues()
+	t.Log(a)
 	tsSF := timeSpent(slowFun)
 	t.Log(tsSF(10))
+}
+
+func Sum(ops ...int) int {
+	ret := 0
+	for _, op := range ops {
+		ret += op
+	}
+	return ret
+}
+
+func TestVarParam(t *testing.T) {
+	t.Log(Sum(1, 2, 3, 4))
+	t.Log(Sum(1, 2, 3, 4, 5))
 }
