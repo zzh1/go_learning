@@ -1,13 +1,25 @@
 package encapsulation
 
 import (
+	"fmt"
 	"testing"
+	"unsafe"
 )
 
 type Employee struct {
 	Id   string
 	Name string
 	Age  int
+}
+
+// func (e *Employee) String() string {
+// 	fmt.Printf("Address is %x", unsafe.Pointer(&e.Name))
+// 	return fmt.Sprintf("ID:%s/Name:%s/Age:%d", e.Id, e.Name, e.Age)
+// }
+
+func (e Employee) String() string {
+	fmt.Printf("Address is %x\n", unsafe.Pointer(&e.Name))
+	return fmt.Sprintf("ID:%s-Name:%s-Age:%d", e.Id, e.Name, e.Age)
 }
 
 func TestCreateEmployeeObj(t *testing.T) {
@@ -29,4 +41,11 @@ func TestCreateEmployeeObj(t *testing.T) {
 	//返回指针类型
 	t.Logf("e2 is %T", e2)
 
+}
+
+func TestStructOperations(t *testing.T) {
+	e := Employee{"0", "Bob", 20}
+	// e := &Employee{"0", "Bob", 20}
+	fmt.Printf("Address is %x\n", unsafe.Pointer(&e.Name))
+	t.Log(e.String())
 }
