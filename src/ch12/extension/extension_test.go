@@ -18,23 +18,30 @@ func (p *Pet) SpeakTo(host string) {
 }
 
 type Dog struct {
-	p *Pet
+	Pet
 }
 
 func (d *Dog) Speak() {
-	// d.p.Speak()
-
-	fmt.Println("Wang!")
-}
-
-func (d *Dog) SpeakTo(host string) {
-	// d.p.SpeakTo(host)
-
-	d.Speak()
-	fmt.Println(" ", host)
+	fmt.Print("Wang!")
 }
 
 func TestDog(t *testing.T) {
+	// dog := new(Dog)
+	// dog.SpeakTo("chao")
+	// dog.Speak()
+
+	//不能按照继承的来用
+	// var dog Pet = new(Dog)
+
+	/*
+		//也无法支持（强制转换）LSP？
+		var dog *Dog = new(Dog)
+		var p = (*Pet)(dog)
+		p.SpeakTo("Chao")
+		dog.SpeakTo("Chao")
+	*/
+
 	dog := new(Dog)
-	dog.SpeakTo("chao")
+	dog.SpeakTo("Chao")
+
 }
