@@ -7,8 +7,14 @@ import (
 )
 
 func TestPanicVxExit(t *testing.T) {
+	//panic后会调用defer函数
+	// defer func() {
+	// 	fmt.Println("Finally!")
+	// }()
 	defer func() {
-		fmt.Println("Finally!")
+		if err := recover(); err != nil {
+			fmt.Println("recovered from ", err)
+		}
 	}()
 	fmt.Println("Start")
 	panic(errors.New("Something wrong!"))
