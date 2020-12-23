@@ -2,7 +2,7 @@ package remote_package
 
 import (
 	"testing"
-
+	// cm为别名，包名太长
 	cm "github.com/easierway/concurrent_map"
 )
 
