@@ -2,12 +2,19 @@ package err_test
 
 import (
 	"errors"
+	"fmt"
 	"testing"
 )
 
+var LessThanTwoError = errors.New("n should be not less than 2")
+var LargerThanHundredError = errors.New("n should be not larger than 100")
+
 func GetFibonacci(n int) ([]int, error) {
-	if n < 2 || n > 100 {
-		return nil, errors.New("n should be in [2,100]")
+	if n < 2 {
+		return nil, LessThanTwoError
+	}
+	if n > 100 {
+		return nil, LargerThanHundredError
 	}
 	fibList := []int{1, 1}
 	for i := 2; /*短变量声明:=*/ i < n; i++ {
@@ -18,7 +25,10 @@ func GetFibonacci(n int) ([]int, error) {
 
 func TestGetFibonacci(t *testing.T) {
 	// t.Log(GetFibonacci(10))
-	if v, err := GetFibonacci(1); err != nil {
+	if v, err := GetFibonacci(200); err != nil {
+		if err == LessThanTwoError {
+			fmt.Println("it is less.")
+		}
 		t.Error(err)
 	} else {
 		t.Log(v)
