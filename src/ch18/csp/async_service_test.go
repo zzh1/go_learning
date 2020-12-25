@@ -42,6 +42,7 @@ func TestAsynService(t *testing.T) {
 	retCh := AsyncService()
 	otherTask()
 	fmt.Println(<-retCh)
+	//这种方式的话，会先完全执行完otherTask，再执行AsyncService协程
 	// fmt.Println(<-AsyncService())
 	// time.Sleep(time.Second * 1)
 }
