@@ -26,7 +26,7 @@ func TestService(t *testing.T) {
 func AsyncService() chan string {
 	//普通channal
 	// retCh := make(chan string)
-	//buffer channel
+	//buffer channel,后面的1表示缓冲容量
 	retCh := make(chan string, 1)
 	go func() {
 		ret := service()
@@ -42,5 +42,6 @@ func TestAsynService(t *testing.T) {
 	retCh := AsyncService()
 	otherTask()
 	fmt.Println(<-retCh)
+	// fmt.Println(<-AsyncService())
 	// time.Sleep(time.Second * 1)
 }
