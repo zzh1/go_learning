@@ -21,3 +21,26 @@ func TestService(t *testing.T) {
 	fmt.Println(service())
 	otherTask()
 }
+
+// chan string 表示返回通道类型，通道的类型是string
+func AsyncService() chan string {
+	//普通channal
+	// retCh := make(chan string)
+	//buffer channel
+	retCh := make(chan string, 1)
+	go func() {
+		ret := service()
+		fmt.Println("returned result.")
+		//往channel中放数据
+		retCh <- ret
+		fmt.Println("service exited.")
+	}()
+	return retCh
+}
+
+func TestAsynService(t *testing.T) {
+	retCh := AsyncService()
+	otherTask()
+	fmt.Println(<-retCh)
+	// time.Sleep(time.Second * 1)
+}
