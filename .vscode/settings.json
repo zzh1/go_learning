@@ -1,4 +1,7 @@
 {
     "gitlens.autolinks": [],
-    "go.testFlags": ["-v"],
+    "go.testFlags": [
+        "-v"
+    ],
+    "explorer.compactFolders": false,
 }
