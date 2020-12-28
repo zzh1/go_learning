@@ -2,6 +2,7 @@ package util_anyone_reply
 
 import (
 	"fmt"
+	"runtime"
 	"testing"
 	"time"
 )
@@ -13,7 +14,9 @@ func runTask(id int) string {
 
 func FirstResponse() string {
 	numOfRunner := 10
-	ch := make(chan string)
+	// ch := make(chan string)
+	//使用buffered channel。消息的产生者不需要等待消息的接收者把消息拿走，消息产生者和接收者解藕
+	ch := make(chan string, numOfRunner)
 	for i := 0; i < numOfRunner; i++ {
 		go func(i int) {
 			ret := runTask(i)
@@ -25,5 +28,8 @@ func FirstResponse() string {
 }
 
 func TestFirstResponse(t *testing.T) {
+	t.Log("Before:", runtime.NumGoroutine())
 	t.Log(FirstResponse())
+	time.Sleep(time.Second * 1)
+	t.Log("After:", runtime.NumGoroutine())
 }
