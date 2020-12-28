@@ -13,12 +13,15 @@ func dataProducer(ch chan int, wg *sync.WaitGroup) {
 		}
 		//关闭channel
 		close(ch)
+		//给已关闭的通道中继续输入，会报错 panic
+		// ch <- 11
 		wg.Done()
 	}()
 }
 
 func dataReceiver(ch chan int, wg *sync.WaitGroup) {
 	go func() {
+
 		for {
 			// ok会返回channel状态，false的话，即channel关闭。无须再和生产者规定10
 			if data, ok := <-ch; ok {
@@ -27,6 +30,15 @@ func dataReceiver(ch chan int, wg *sync.WaitGroup) {
 				break
 			}
 		}
+
+		/*
+			// i为11的时候，通道已经关闭，得到该类型的0值
+			for i := 0; i < 11; i++ {
+				data := <-ch
+				fmt.Println(data)
+			}
+		*/
+
 		wg.Done()
 	}()
 }
@@ -39,7 +51,7 @@ func TestCloseChannel(t *testing.T) {
 	wg.Add(1)
 	dataReceiver(ch, &wg)
 	//可以采用多个receiver
-	wg.Add(1)
-	dataReceiver(ch, &wg)
+	// wg.Add(1)
+	// dataReceiver(ch, &wg)
 	wg.Wait()
 }
